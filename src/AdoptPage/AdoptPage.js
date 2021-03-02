@@ -33,37 +33,35 @@ export default class AdoptPage extends Component {
             .catch((error) => this.setState({ error }));
     }
 
-    adoptButtonClicked(type) {
-        setTimeout(() => {
-            ApiService.dequeuePet(type)
-                .then(() => {
-                    ApiService.getCat()
-                        .then(cat => {
-                            this.setState({ cat })
-                        })
-                        .catch((error) => this.setState({ error }));
-                    ApiService.getDog()
-                        .then(dog => {
-                            this.setState({ dog })
-                        })
-                        .catch((error) => this.setState({ error }));
-                })
-                .then(() => {
-                    ApiService.removePerson()
-                        .then(() => {
-                            ApiService.getPeople()
-                                .then((people) => {
-                                    this.setState({
-                                        people,
-                                        userName: '',
-                                        inLine: false,
-                                        atFront: false,
-                                    });
-                                })
-                                .catch((error) => this.setState({ error }));
-                        });
-                });
-        }, 3000);
+    adoptButtonClicked = (type) => {
+        ApiService.dequeuePet(type)
+            .then(() => {
+                ApiService.getCat()
+                    .then(cat => {
+                        this.setState({ cat })
+                    })
+                    .catch((error) => this.setState({ error }));
+                ApiService.getDog()
+                    .then(dog => {
+                        this.setState({ dog })
+                    })
+                    .catch((error) => this.setState({ error }));
+            })
+            .then(() => {
+                ApiService.removePerson()
+                    .then(() => {
+                        ApiService.getPeople()
+                            .then((people) => {
+                                this.setState({
+                                    people,
+                                    userName: '',
+                                    inLine: false,
+                                    atFront: false,
+                                });
+                            })
+                            .catch((error) => this.setState({ error }));
+                    });
+            });
     }
 
     handleFormSubmit(e) {
@@ -103,8 +101,8 @@ export default class AdoptPage extends Component {
                             }
                         })
                         .catch((error) => this.setState({ error }));
-                });
-        }, 5000);
+                })
+        }, 1000);
     };
 
     removeRandomPet() {
@@ -140,7 +138,7 @@ export default class AdoptPage extends Component {
                         })
                         .catch((error) => this.setState({ error }));
                 });
-        }, 5000);
+        }, 1000);
     };
 
     render() {
