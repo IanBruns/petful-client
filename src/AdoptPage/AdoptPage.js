@@ -34,7 +34,36 @@ export default class AdoptPage extends Component {
     }
 
     adoptButtonClicked(type) {
-        console.log(type);
+        setTimeout(() => {
+            ApiService.dequeuePet(type)
+                .then(() => {
+                    ApiService.getCat()
+                        .then(cat => {
+                            this.setState({ cat })
+                        })
+                        .catch((error) => this.setState({ error }));
+                    ApiService.getDog()
+                        .then(dog => {
+                            this.setState({ dog })
+                        })
+                        .catch((error) => this.setState({ error }));
+                })
+                .then(() => {
+                    ApiService.removePerson()
+                        .then(() => {
+                            ApiService.getPeople()
+                                .then((people) => {
+                                    this.setState({
+                                        people,
+                                        userName: '',
+                                        inLine: false,
+                                        atFront: false,
+                                    });
+                                })
+                                .catch((error) => this.setState({ error }));
+                        });
+                });
+        }, 3000);
     }
 
     handleFormSubmit(e) {
@@ -68,7 +97,7 @@ export default class AdoptPage extends Component {
                     ApiService.getPeople()
                         .then((people) => {
                             this.setState({ people });
-                            if (people[0] === this.state.userName) {
+                            if (this.state.people[0] === this.state.userName) {
                                 clearInterval(this.interval);
                                 this.fillQueue();
                             }
@@ -130,6 +159,11 @@ export default class AdoptPage extends Component {
                             type={'dog'}
                             adoptable={this.state.atFront} />)}
                 </div>
+
+                {this.state.atFront &&
+                    (<div>
+                        <h3>Now it's time to adopt!</h3>
+                    </div>)}
 
                 {this.state.inLine === false && (
                     <form className="adopt-form" onSubmit={e => this.handleFormSubmit(e)}>
