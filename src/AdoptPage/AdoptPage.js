@@ -30,8 +30,8 @@ export default class AdoptPage extends Component {
             })
     }
 
-    adoptButtonClicked() {
-        console.log('click');
+    adoptButtonClicked(type) {
+        console.log(type);
     }
 
     handleFormSubmit(e) {
@@ -61,10 +61,12 @@ export default class AdoptPage extends Component {
                     {(this.state.cat &&
                         <PetSquare adoptButtonClicked={this.adoptButtonClicked}
                             pet={this.state.cat}
+                            type={'cat'}
                             adoptable={this.state.atFront} />)}
                     {(this.state.dog &&
                         <PetSquare adoptButtonClicked={this.adoptButtonClicked}
                             pet={this.state.dog}
+                            type={'dog'}
                             adoptable={this.state.atFront} />)}
                 </div>
 

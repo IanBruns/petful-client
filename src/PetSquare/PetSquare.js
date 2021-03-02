@@ -10,8 +10,8 @@ export default function PetSquare(props) {
             <p>Description: {`${props.pet.description}`}</p>
             <p>Story: {`${props.pet.story}`}</p>
             <button
-                onClick={props.adoptButtonClicked}
-                disabled={!props.adoptable}>Adopt</button>
+                onClick={() => props.adoptButtonClicked(props.type)}
+                disabled={props.adoptable}>Adopt</button>
         </div>
     )
 }
