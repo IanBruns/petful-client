@@ -12,7 +12,7 @@ export default class AdoptPage extends Component {
         userName: '',
         inLine: false,
         atFront: false,
-        waiting: '',
+        waiting: false,
         adoptMessage: '',
     }
 
@@ -44,11 +44,13 @@ export default class AdoptPage extends Component {
             .then(people => {
                 this.setState({
                     people: people,
-                    userName: '',
                     inLine: true,
                     atFront: false,
+                    waiting: true,
                 })
             })
+
+        this.moveQueue();
     }
 
     changeUserName(e) {
@@ -56,6 +58,26 @@ export default class AdoptPage extends Component {
             userName: e.target.value,
         })
     }
+
+    moveQueue() {
+        this.interval = setInterval(() => {
+            ApiService.dequeuePerson()
+                .then(() => {
+                    this.dqPair();
+                })
+                .then(() => {
+                    ApiService.getAllPeople()
+                        .then((people) => {
+                            this.setState({ people });
+                            if (people[0] === this.state.userName) {
+                                clearInterval(this.interval);
+                                this.fillQueue();
+                            }
+                        })
+                        .catch((error) => this.setState({ error }));
+                });
+        }, 5000);
+    };
 
     render() {
         return (
