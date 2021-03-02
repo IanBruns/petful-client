@@ -13,6 +13,7 @@ export default class AdoptPage extends Component {
         inLine: false,
         atFront: false,
         waiting: '',
+        adoptMessage: '',
     }
 
     componentDidMount() {
@@ -20,14 +21,17 @@ export default class AdoptPage extends Component {
             .then(cat => {
                 this.setState({ cat })
             })
+            .catch((error) => this.setState({ error }));
         ApiService.getDog()
             .then(dog => {
                 this.setState({ dog })
             })
+            .catch((error) => this.setState({ error }));
         ApiService.getPeople()
             .then(people => {
                 this.setState({ people })
             })
+            .catch((error) => this.setState({ error }));
     }
 
     adoptButtonClicked(type) {
