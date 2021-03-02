@@ -61,9 +61,9 @@ export default class AdoptPage extends Component {
 
     moveQueue() {
         this.interval = setInterval(() => {
-            ApiService.dequeuePerson()
+            ApiService.removePerson()
                 .then(() => {
-                    this.dqPair();
+                    this.removeRandomPet();
                 })
                 .then(() => {
                     ApiService.getAllPeople()
@@ -79,7 +79,7 @@ export default class AdoptPage extends Component {
         }, 5000);
     };
 
-    dqPair() {
+    removeRandomPet() {
         let pets = ['cat', 'dog'];
         let pet = pets[Math.floor(Math.random() * pets.length)];
         ApiService.dequeuePet(pet).then(() => {

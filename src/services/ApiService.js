@@ -55,6 +55,35 @@ const ApiService = {
             })
             .catch((error) => console.error(error));
     },
+    removePerson() {
+        return fetch(`${API_ADDRESS}/people`, {
+            method: 'DELETE',
+            headers: { 'content-type': 'application/json' },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((event) => Promise.reject(event));
+                } else {
+                    return response.json();
+                }
+            })
+            .catch((error) => console.error(error));
+    },
+    dequeuePet(type) {
+        return fetch(`${API_ADDRESS}/pets`, {
+            method: 'DELETE',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ type }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((event) => Promise.reject(event));
+                } else {
+                    return response.json();
+                }
+            })
+            .catch((error) => console.error(error));
+    },
 }
 
 export default ApiService;
