@@ -12,6 +12,7 @@ export default class AdoptPage extends Component {
         userName: '',
         inLine: false,
         atFront: false,
+        waiting: '',
     }
 
     componentDidMount() {
