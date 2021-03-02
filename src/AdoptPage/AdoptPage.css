@@ -1,3 +1,20 @@
 .pets{
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.adopt-form, .Queue {
+    text-align: center;
+}
+
+.PetSquare {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+@media all and (min-width: 950px) {
+    .pets{
+        flex-direction: row;
+    }
 }
