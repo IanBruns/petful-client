@@ -8,8 +8,14 @@
     text-align: center;
 }
 
+.Queue{
+    background-color: cornflowerblue;
+    padding: 5px;
+}
+
 .PetSquare {
-    border: 1px solid black;
+    box-shadow: 10px 10px 8px #888888;
+    background-color: cornflowerblue;
     padding: 5px;
 }
 
