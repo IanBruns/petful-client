@@ -12,8 +12,7 @@ export default class AdoptPage extends Component {
         userName: '',
         inLine: false,
         atFront: false,
-        waiting: false,
-        adoptMessage: '',
+        waiting: false
     }
 
     componentDidMount() {
@@ -66,7 +65,7 @@ export default class AdoptPage extends Component {
                     this.removeRandomPet();
                 })
                 .then(() => {
-                    ApiService.getAllPeople()
+                    ApiService.getPeople()
                         .then((people) => {
                             this.setState({ people });
                             if (people[0] === this.state.userName) {
@@ -82,13 +81,19 @@ export default class AdoptPage extends Component {
     removeRandomPet() {
         let pets = ['cat', 'dog'];
         let pet = pets[Math.floor(Math.random() * pets.length)];
-        ApiService.dequeuePet(pet).then(() => {
-            ApiService.getAllPets()
-                .then((pets) => {
-                    this.setState({ pets });
-                })
-                .catch((error) => this.setState({ error }));
-        });
+        ApiService.dequeuePet(pet)
+            .then(() => {
+                ApiService.getCat()
+                    .then(cat => {
+                        this.setState({ cat })
+                    })
+                    .catch((error) => this.setState({ error }));
+                ApiService.getDog()
+                    .then(dog => {
+                        this.setState({ dog })
+                    })
+                    .catch((error) => this.setState({ error }));
+            });
     };
 
     fillQueue() {
@@ -96,7 +101,7 @@ export default class AdoptPage extends Component {
             const name = `Test Man ${Math.floor(Math.random() * 45)}`
             ApiService.addPerson(name)
                 .then(() => {
-                    ApiService.getAllPeople()
+                    ApiService.getPeople()
                         .then((people) => {
                             this.setState({ people });
                             if (people.length === 5) {
@@ -140,8 +145,9 @@ export default class AdoptPage extends Component {
                     </form>
                 )}
 
-                <Queue
-                    people={this.state.people} />
+                {this.state.people &&
+                    <Queue
+                        people={this.state.people} />}
 
             </div>
         )
