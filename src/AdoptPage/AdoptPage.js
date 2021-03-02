@@ -6,8 +6,8 @@ import './AdoptPage.css'
 
 export default class AdoptPage extends Component {
     state = {
-        cat: {},
-        dog: {},
+        error: null,
+        pets: { cats: [], dogs: [] },
         people: [],
         userName: '',
         inLine: false,
@@ -16,18 +16,16 @@ export default class AdoptPage extends Component {
     }
 
     componentDidMount() {
-        ApiService.getCat()
-            .then(cat => {
-                this.setState({ cat })
+        ApiService.getAllPets()
+            .then((pets) => {
+                this.setState({ pets });
             })
-        ApiService.getDog()
-            .then(dog => {
-                this.setState({ dog })
-            })
+            .catch((error) => this.setState({ error }));
         ApiService.getPeople()
             .then(people => {
                 this.setState({ people })
             })
+            .catch((error) => this.setState({ error }));
     }
 
     adoptButtonClicked() {
