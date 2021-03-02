@@ -40,15 +40,15 @@ export default class AdoptPage extends Component {
 
     handleFormSubmit(e) {
         e.preventDefault();
-        let newPeople = this.state.people;
-        newPeople.push(this.state.userName);
-
-        this.setState({
-            people: newPeople,
-            userName: '',
-            inLine: true,
-            atFront: false,
-        });
+        ApiService.addPerson(this.state.userName)
+            .then(people => {
+                this.setState({
+                    people: people,
+                    userName: '',
+                    inLine: true,
+                    atFront: false,
+                })
+            })
     }
 
     changeUserName(e) {

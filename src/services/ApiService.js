@@ -39,7 +39,22 @@ const ApiService = {
                 return data;
             })
             .catch((error) => console.error(error));
-    }
+    },
+    addPerson(person) {
+        return fetch(`${API_ADDRESS}/people`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ person }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((event) => Promise.reject(event));
+                } else {
+                    return response.json();
+                }
+            })
+            .catch((error) => console.error(error));
+    },
 }
 
 export default ApiService;
