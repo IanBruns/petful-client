@@ -79,6 +79,24 @@ export default class AdoptPage extends Component {
         }, 5000);
     };
 
+    fillQueue() {
+        this.interval = setInterval(() => {
+            const name = `Test Man ${Math.floor(Math.random() * 45)}`
+            ApiService.addPerson(name)
+                .then(() => {
+                    ApiService.getAllPeople()
+                        .then((people) => {
+                            this.setState({ people });
+                            if (people.length === 5) {
+                                clearInterval(this.interval);
+                                this.setState({ atFront: true, waiting: false });
+                            }
+                        })
+                        .catch((error) => this.setState({ error }));
+                });
+        }, 5000);
+    };
+
     render() {
         return (
             <div className='AdoptPage' >
