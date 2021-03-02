@@ -1,12 +1,6 @@
 import React from 'react';
 
 export default function PetSquare(props) {
-    function isAdoptable() {
-        return props.adoptable
-            ? !props.adoptable
-            : false;
-    }
-
     return (
         <div className='PetSquare'>
             <img src={props.pet.imageURL} alt='' />
@@ -17,7 +11,7 @@ export default function PetSquare(props) {
             <p>Story: {`${props.pet.story}`}</p>
             <button
                 onClick={props.adoptButtonClicked}
-                disabled={isAdoptable()}>Adopt</button>
+                disabled={!props.adoptable}>Adopt</button>
         </div>
     )
 }

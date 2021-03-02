@@ -6,8 +6,8 @@ import './AdoptPage.css'
 
 export default class AdoptPage extends Component {
     state = {
-        error: null,
-        pets: { cats: [], dogs: [] },
+        cat: {},
+        dog: {},
         people: [],
         userName: '',
         inLine: false,
@@ -16,16 +16,18 @@ export default class AdoptPage extends Component {
     }
 
     componentDidMount() {
-        ApiService.getAllPets()
-            .then((pets) => {
-                this.setState({ pets });
+        ApiService.getCat()
+            .then(cat => {
+                this.setState({ cat })
             })
-            .catch((error) => this.setState({ error }));
+        ApiService.getDog()
+            .then(dog => {
+                this.setState({ dog })
+            })
         ApiService.getPeople()
             .then(people => {
                 this.setState({ people })
             })
-            .catch((error) => this.setState({ error }));
     }
 
     adoptButtonClicked() {
@@ -59,11 +61,11 @@ export default class AdoptPage extends Component {
                     {(this.state.cat &&
                         <PetSquare adoptButtonClicked={this.adoptButtonClicked}
                             pet={this.state.cat}
-                            adoptable={this.state.adoptable} />)}
+                            adoptable={this.state.atFront} />)}
                     {(this.state.dog &&
                         <PetSquare adoptButtonClicked={this.adoptButtonClicked}
                             pet={this.state.dog}
-                            adoptable={this.state.adoptable} />)}
+                            adoptable={this.state.atFront} />)}
                 </div>
 
                 {this.state.inLine === false && (

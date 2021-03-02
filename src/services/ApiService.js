@@ -1,14 +1,29 @@
 import API_ADDRESS from '../config';
 
 const ApiService = {
-    getAllPets() {
-        return fetch(`${API_ADDRESS}/pets`)
-            .then((response) => {
-                if (!response.ok) {
-                    return response.json().then((event) => Promise.reject(event));
-                } else {
-                    return response.json();
+    getCat() {
+        return fetch(`${API_ADDRESS}/cats`)
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(e => Promise.reject(e));
                 }
+                return res.json();
+            })
+            .then(data => {
+                return data;
+            })
+            .catch((error) => console.error(error));
+    },
+    getDog() {
+        return fetch(`${API_ADDRESS}/dogs`)
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(e => Promise.reject(e));
+                }
+                return res.json();
+            })
+            .then(data => {
+                return data;
             })
             .catch((error) => console.error(error));
     },
