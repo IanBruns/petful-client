@@ -10,7 +10,6 @@ export default class AdoptPage extends Component {
         dog: {},
         people: [],
         userName: '',
-        adoptable: false,
         inLine: false,
         atFront: false,
     }
@@ -56,6 +55,7 @@ export default class AdoptPage extends Component {
     render() {
         return (
             <div className='AdoptPage' >
+
                 <div className='pets'>
                     {(this.state.cat &&
                         <PetSquare adoptButtonClicked={this.adoptButtonClicked}
@@ -66,6 +66,7 @@ export default class AdoptPage extends Component {
                             pet={this.state.dog}
                             adoptable={this.state.adoptable} />)}
                 </div>
+
                 {this.state.inLine === false && (
                     <form className="adopt-form" onSubmit={e => this.handleFormSubmit(e)}>
                         <h4>Want to adopt one of these cuties?</h4>
@@ -79,8 +80,10 @@ export default class AdoptPage extends Component {
                         <button type="submit">Submit</button>
                     </form>
                 )}
+
                 <Queue
                     people={this.state.people} />
+
             </div>
         )
     }
