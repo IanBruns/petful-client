@@ -26,6 +26,19 @@ const ApiService = {
                 return data;
             })
             .catch((error) => console.error(error));
+    },
+    getPeople() {
+        return fetch(`${API_ADDRESS}/people`)
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(e => Promise.reject(e));
+                }
+                return res.json();
+            })
+            .then(data => {
+                return data;
+            })
+            .catch((error) => console.error(error));
     }
 }
 
