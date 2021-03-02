@@ -79,6 +79,18 @@ export default class AdoptPage extends Component {
         }, 5000);
     };
 
+    dqPair() {
+        let pets = ['cat', 'dog'];
+        let pet = pets[Math.floor(Math.random() * pets.length)];
+        ApiService.dequeuePet(pet).then(() => {
+            ApiService.getAllPets()
+                .then((pets) => {
+                    this.setState({ pets });
+                })
+                .catch((error) => this.setState({ error }));
+        });
+    };
+
     fillQueue() {
         this.interval = setInterval(() => {
             const name = `Test Man ${Math.floor(Math.random() * 45)}`
