@@ -102,7 +102,7 @@ export default class AdoptPage extends Component {
                         })
                         .catch((error) => this.setState({ error }));
                 })
-        }, 1000);
+        }, 5000);
     };
 
     removeRandomPet() {
@@ -138,7 +138,7 @@ export default class AdoptPage extends Component {
                         })
                         .catch((error) => this.setState({ error }));
                 });
-        }, 1000);
+        }, 5000);
     };
 
     render() {
